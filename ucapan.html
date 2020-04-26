@@ -1,0 +1,1055 @@
+<html lang="id" class="translated-ltr"><head>
+	  <title>MAX</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.0/dist/spectrum.min.css">
+	  <style type="text/css">
+	  	body{
+	  		overflow: hidden;
+	  		background: black;
+	  		width: 100%;
+	  		height: 100vh;
+	  	}
+	  	.bg{
+	  		width: 100%;
+	  		height: 100vh;
+	  		position: absolute;
+	  		z-index: -1;
+	  	}
+	  	.ubuntu{
+	  		background: linear-gradient(to left,#8942A8,#BA382F);
+	  		opacity: 0;
+	  	}
+	  	.dawn{
+	  		background: linear-gradient(0deg, rgba(133,26,0,1) 3%, rgba(255,51,0,1) 19%, rgba(181,103,47,1) 45%, rgba(52,142,200,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.morning{
+	  		background: linear-gradient(0deg, rgba(255,230,113,1) 0%, rgba(82,167,255,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.noon{
+	  		background: linear-gradient(0deg, rgba(22,183,255,1) 0%, rgba(14,116,223,1) 58%, rgba(1,7,170,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.afternoon{
+	  		background: linear-gradient(0deg, rgba(161,133,255,1) 0%, rgba(0,118,226,1) 61%, rgba(1,81,170,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.sunset{
+	  		background: linear-gradient(0deg, rgba(195,75,42,1) 0%, rgba(129,29,121,1) 8%, rgba(89,1,170,1) 29%, rgba(1,5,79,1) 90%);
+	  		opacity: 0;
+	  	}
+	  	.evening{
+	  		background: linear-gradient(0deg, rgba(0,7,128,1) 0%, rgba(0,3,54,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.midnight{
+	  		background: linear-gradient(0deg, rgba(0,3,60,1) 0%, rgba(0,0,0,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.red{
+	  		background: linear-gradient(90deg, rgba(255,0,255,1) 0%, rgba(255,0,0,1) 50%, rgba(255,255,0,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.green{
+	  		background: linear-gradient(90deg, rgba(255,255,0,1) 0%, rgba(0,255,0,1) 50%, rgba(0,255,255,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.blue{
+	  		background: linear-gradient(90deg, rgba(0,255,255,1) 0%, rgba(0,0,255,1) 50%, rgba(255,0,255,1) 100%);
+	  		opacity: 0;
+	  	}
+	  	.custom{
+	  		background-color: #0079FF;
+	  		opacity: 0;
+	  	}
+	  	.jam,.ucapan,.quotes{
+	  		margin: 0px;
+	  		padding: 0px;
+	  		position: absolute;
+	  		color: #fff;
+	  		transition: all 5s ease, color 1s ease;
+	  	}
+	  	.jam{
+	  		opacity: 0;
+	  		font-size: 100pt;
+	  		left: 50%;
+	  		bottom: 50%;
+	  		transform: translate(-50%,calc(50% - 0px));
+	  	}
+	  	.ucapan{
+	  		font-size: 25pt;
+	  		left: 50%;
+	  		bottom: 50%;
+	  		text-align: center;
+	  		transform: translate(-50%,calc(50% + 100px));
+	  	}
+	  	.quotes{
+	  		left: 50%;
+	  		bottom: 0;
+	  		transform: translate(-50%,0%);
+	  		text-align: center;
+	  		font-size: 15pt;
+	  		text-shadow: 0px 0px 10px #000;
+	  		z-index: 2;
+	  	}
+	  	.kontrol{
+	  		margin: 20px;
+	  		background: #fff;
+	  		padding: 20px;
+	  		position: absolute;
+	  		width: 200px;
+	  		border-radius: 10px;
+	  		left: -220px;
+	  		transition: all 1 ease;
+	  		z-index: 99;
+	  	}
+	  	.panah{
+	  		content: '';
+	  		width: 10px;
+	  		height: 10px;
+	  		position: absolute;
+	  		top: calc(50% - 5px);
+	  		right: -30px;
+	  		border: 2px solid rgba(255,255,255,0.2);
+	  		border-bottom: none;
+	  		border-left: none;
+	  		border-radius: 2px;
+	  		border-top-left-radius: 3px;
+	  		border-bottom-right-radius: 3px;
+	  		transform: rotate(45deg);
+	  		z-index: 50;
+	  	}
+	  	#color-picker{
+	  		width: 100%;
+	  	}
+	  	.note{
+	  		color: white;
+	  		transition: all 2s ease;
+	  		opacity: 0;
+	  		position: absolute;
+	  		top: 50%;
+	  		left: 50%;
+	  		transform: translate(-50%,-50%);
+	  		font-size: 20pt;
+	  		text-align: center;
+	  		width: 100vh;
+	  	}
+  		.kotak{
+  			position: absolute;
+  			top: 0;
+  			left: 0;
+  			width: 100%;
+  			height: 100%;
+  			overflow: hidden;
+  			z-index: -1;
+  		}
+  		.kotak li{
+  			position: absolute;
+  			display: block;
+  			list-style: none;
+  			width: 25px;
+  			height: 25px;
+  			background: rgba(255,255,255,0.2);
+  			animation: animate 20s linear infinite; 
+  			bottom: -150px;
+  			transition: all 1s ease;
+  		}
+  		.kotak li:nth-child(1){
+  			left: 86%;
+  			width: 80px;
+  			height: 80px;
+  			animation-delay: 0s;
+  		}
+  		.kotak li:nth-child(2){
+  			left: 12%;
+  			width: 30px;
+  			height: 30px;
+  			animation-delay: 1.5s;
+  			animation-duration: 10s;
+  		}
+  		.kotak li:nth-child(3){
+  			left: 70%;
+  			width: 100px;
+  			height: 100px;
+  			animation-delay: 5.5s;
+  		}
+  		.kotak li:nth-child(4){
+  			left: 42%;
+  			width: 150px;
+  			height: 150px;
+  			animation-delay: 0s;
+  			animation-duration: 15s; 
+  		}
+  		.kotak li:nth-child(5){
+  			left: 15%;
+  			width: 110px;
+  			height: 110px;
+  			animation-delay: 3.5s;
+  		}
+  		.bulat{
+  			position: absolute;
+  			width: 600px;
+  			height: 600px;
+  			display: flex;
+  			left:50%;
+	  		bottom: 50%;
+	  		transform: translate(-50%,50%) scale(0);
+	  		transition: 3s all ease;
+  		}
+  		.bulat span:nth-child(1){
+  			position: absolute;
+  			top: 0;
+  			left: 0;
+  			width: 100%;
+  			height: 100%;
+  			border: 2px solid #fff;
+  			border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+  			transition: 0.5s;
+  			animation: animate2 6s linear infinite;
+  		}
+  		.bulat span:nth-child(2){
+  			position: absolute;
+  			top: 0;
+  			left: 0;
+  			width: 100%;
+  			height: 100%;
+  			border: 2px solid #fff;
+  			border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+  			transition: 0.5s;
+  			animation: animate3 4s linear infinite;
+  		}
+  		.bulat span:nth-child(3){
+  			position: absolute;
+  			top: 0;
+  			left: 0;
+  			width: 100%;
+  			height: 100%;
+  			border: 5px solid #fff;
+  			border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+  			transition: 0.5s;
+  			animation: animate2 10s linear infinite;
+  		}
+  		.pengembang{
+  			position: absolute;
+  			font-size: 10px;
+  			color: #FFFFFF;
+  			bottom: 0px;
+  			right: 0px;
+  			opacity: 0.3;
+  		}
+  		@keyframes animate{
+  			0%{
+  				transform: translateY(0) rotate(0deg);
+  				opacity: 1;
+  			}
+  			100%{
+  				transform: translateY(-100vh) rotate(360deg);
+  				opacity: 0;
+  			}
+  		}
+  		@keyframes animate2{
+  			0%{
+  				transform:rotate(0deg);
+  			}
+  			100%{
+  				transform:rotate(360deg);
+  			}
+  		}
+  		@keyframes animate3{
+  			0%{
+  				transform:rotate(360deg);
+  			}
+  			100%{
+  				transform:rotate(0deg);
+  			}
+  		}
+  		@media only screen and (max-width: 900px), screen and (max-height: 700px) {
+  			.jam,.ucapan{
+  				transition: all 1s ease;
+  			}
+			.jam{
+		  		font-size: 50pt;
+		  		transform: translate(-50%,calc(50% - 0px));
+		  	}
+		  	.ucapan{
+		  		font-size: 15pt;
+		  		transform: translate(-50%,calc(50% + 50px));
+		  	}
+		  	.quotes,.note{
+		  		font-size: 15pt;
+		  	}
+		  	.bulat{
+	  			width: 300px;
+	  			height: 300px;
+	  		}
+  		}
+  		@media only screen and (max-width: 500px){
+  			.ucapan{
+		  		font-size: 10pt;
+		  	}
+		  	.quotes{
+		  		font-size: 7pt;
+		  	}
+		  	.note{
+		  		font-size: 10pt;
+		  	}
+  		}
+	  </style>
+	<link type="text/css" rel="stylesheet" charset="UTF-8" href="https://translate.googleapis.com/translate_static/css/translateelement.css"></head>
+	<body onload="init()">
+		<div class="kontrol" onload="readStorage()">
+			<div class="panah"></div>
+			<div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio0" name="example1" checked="">
+		      <label class="custom-control-label" for="customRadio0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Berdasarkan waktu</font></font></label>
+		    </div>   
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio1" name="example1">
+		      <label class="custom-control-label" for="customRadio1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Gaya Ubuntu</font></font></label>
+		    </div>   
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio10" name="example1">
+		      <label class="custom-control-label" for="customRadio10"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Input Manual</font></font></label>
+		    </div>   
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio2" name="example1">
+		      <label class="custom-control-label" for="customRadio2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fajar</font></font></label>
+		    </div> 
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio3" name="example1">
+		      <label class="custom-control-label" for="customRadio3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Pagi</font></font></label>
+		    </div> 
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio4" name="example1">
+		      <label class="custom-control-label" for="customRadio4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tengah hari</font></font></label>
+		    </div> 
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio5" name="example1">
+		      <label class="custom-control-label" for="customRadio5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sore</font></font></label>
+		    </div> 
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio6" name="example1">
+		      <label class="custom-control-label" for="customRadio6"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Matahari terbenam</font></font></label>
+		    </div> 
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio7" name="example1">
+		      <label class="custom-control-label" for="customRadio7"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Malam</font></font></label>
+		    </div> 
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio8" name="example1">
+		      <label class="custom-control-label" for="customRadio8"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tengah malam</font></font></label>
+		    </div> 
+		    <div class="custom-control custom-radio">
+		      <input type="radio" class="custom-control-input" id="customRadio9" name="example1">
+		      <label class="custom-control-label" for="customRadio9"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Game RGB: v</font></font></label>
+		    </div> 
+		    <span class="sp-original-input-container sp-colorize-container" style="margin: 16px 0px 0px;"><input class="btn mt-3 spectrum sp-colorize" id="color-picker" value="#0079FF" onclick="onClickWarna()" style="background-color: rgb(0, 121, 255); color: white;"></span>
+		</div>
+		<div class="bg ubuntu" style="opacity: 0;"></div>
+		<div class="bg dawn" style="opacity: 0;"></div>
+		<div class="bg morning" style="opacity: 0;"></div>
+		<div class="bg noon" style="opacity: 0;"></div>
+		<div class="bg afternoon" style="opacity: 0;"></div>
+		<div class="bg sunset" style="opacity: 0;"></div>
+		<div class="bg evening" style="opacity: 0;"></div>
+		<div class="bg midnight" style="opacity: 1;"></div>
+		<div class="bg red" style="opacity: 0;"></div>
+		<div class="bg green" style="opacity: 0;"></div>
+		<div class="bg blue" style="opacity: 0;"></div>
+		<div class="bg custom" style="opacity: 0;"></div>
+		<div class="container">
+			<div class="quotes" style="color: rgb(255, 255, 255); text-shadow: rgb(0, 0, 0) 0px 0px 10px;">
+				<p id="quotation"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">"Jauhi mantan, Dekati aku, Mantan masa lalumu, Kalo aku masa depanmu"</font></font></p>
+				<p id="source"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Maximillio</font></font></p>
+			</div>
+			<ul class="kotak">
+				<li style="background: rgb(255, 255, 255);"></li>
+				<li style="background: rgb(255, 255, 255);"></li>
+				<li style="background: rgb(255, 255, 255);"></li>
+				<li style="background: rgb(255, 255, 255);"></li>
+				<li style="background: rgb(255, 255, 255);"></li>
+			</ul>
+			<div class="bulat" style="transform: translate(-50%, 50%) scale(1); opacity: 1;">
+				<span style="border-color: rgb(255, 255, 255);"></span>
+				<span style="border-color: rgb(255, 255, 255);"></span>
+				<span style="border-color: rgb(255, 255, 255);"></span>
+			</div>
+			<div class="jam" id="time" style="opacity: 2; color: rgb(255, 255, 255);">23:42:55</div>
+			<div class="ucapan" id="quote" style="color: rgb(255, 255, 255);"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Saatnya Tidur, Selamat Malam, Semoga Mimpi indah </font></font></div>
+			<div class="pengembang"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Maximillio</font></font></div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.0/dist/spectrum.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/baffle@0.3.6/dist/baffle.min.js"></script>
+                <script src="https://cdn.rawgit.com/bungfrangki/efeksalju/2a7805c7/efek-salju.js"></script>
+		<script type="text/javascript">
+			gaming=false;
+			tombol=false;
+			function init(){
+				bro();
+				init_auto();
+				readMode();
+				readColor();
+				randomQuote();
+				specialEffects();
+			}
+			baffleEffect = baffle('.note', {
+			    characters: 'supercalifragilisticexpialidocious',
+			    speed: 150
+			});
+			function readMode(){
+				if(localStorage.getItem("mode")!=null){
+
+				}
+				switch(localStorage.getItem("mode")) {
+					case 'ubuntu':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio1").prop('checked',true);
+						ubuntu();
+						break;
+					case 'dawn':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio2").prop('checked',true);
+						dawn();
+						break;
+					case 'morning':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio3").prop('checked',true);
+						morning();
+						break;
+					case 'noon':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio4").prop('checked',true);
+						noon();
+						break;
+					case 'afternoon':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio5").prop('checked',true);
+						afternoon();
+						break;
+					case 'sunset':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio6").prop('checked',true);
+						sunset();
+						break;
+					case 'evening':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio7").prop('checked',true);
+						evening();
+						break;
+					case 'midnight':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio8").prop('checked',true);
+						midnight();
+						break;
+					case 'manual':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio10").prop('checked',true);
+						manual();
+						break;
+					case 'gaming1':
+						$('.kontrol input').prop('checked', false);
+						$("#customRadio9").prop('checked',true);
+						gaming1();
+						gaming=true;
+						break;
+					default:
+						
+				}
+			}
+			function readColor(){
+				if(localStorage.getItem("manualColor")==null){
+				}
+				else{
+					var color = $(".custom");
+					(color).css('background',localStorage.getItem("manualColor"));
+					$('#color-picker').val(localStorage.getItem("manualColor"));
+				}
+				colorpicker = $('#color-picker').spectrum({
+				  type: "text",
+				  showInput: "true",
+				  showAlpha: "false",
+				  showButtons: "false"
+				});
+				colorpicker.on('move.spectrum', function(e, tinycolor) {
+					var hexVal = tinycolor.toHexString();
+					var color = $(".custom");
+					color.css('background',hexVal);
+					console.log(hexVal);
+					localStorage.setItem("manualColor", hexVal);
+				 });
+			}
+			function onClickWarna(){
+				localStorage.setItem("mode", "manual");
+				nofill();
+				$('.kontrol input').prop('checked', false);
+				$("#customRadio10").prop('checked',true);
+				gaming=false;
+				manual();
+			}
+			function bro(){
+				namaku = $(".pengembang").text();
+			    var hex, i;
+
+			    var result = "";
+			    for (i=0; i<namaku.length; i++) {
+			        hex = namaku.charCodeAt(i).toString(16);
+			        result += ("000"+hex).slice(-4);
+			    }
+				if (result!="416775734669726D616E37"){
+			           $('body');
+				}
+			}
+			function specialEffects(){
+				if(localStorage.getItem("manualColor")=="#4c1130"){
+					setTimeout(function() { createNote("Jadian Yuk Woeyy :v"); }, 5000);
+				}
+				else if(localStorage.getItem("manualColor")=="#000000"){
+					setTimeout(function() { createNote("Jadian Yuk, Awokwokwok :v"); }, 5000);
+				}
+			}
+			function createNote(isi){
+				$(".jam").css("font-size","30pt").css("bottom","calc( 50% - 50px )");
+				$(".ucapan").css("opacity","0");
+				$(".quotes").css("opacity","0");
+				$(".quotes").css("opacity","0");
+				$(".bulat").css("opacity","0");
+				$(".kotak li").css("opacity","0");
+				setTimeout(function() { writeNote(isi); }, 3000);
+			}
+			function writeNote(isi){
+				$(".note").text(isi).css("opacity","1");
+
+				baffle('.note')
+					.reveal(2000)
+				    .start()
+				    .set({
+				        characters: '░░█ /<▒▓▒ ▒░▒█/ █/▒ ▒▓/█▒ ▓▒░▓ ██░ ▒░▓░ ▒░▓█',
+				        speed: 150
+				    });
+				    localStorage.setItem("manualColor", "#0079FF");
+			}
+			$(".panah").click(function(){
+				if (tombol==false){
+					$(".panah").css("transform","rotate(225deg)");
+					$(".kontrol").animate({left: "0px"});
+					tombol=true;
+				}else if (tombol==true){
+					$(".panah").css("transform","rotate(45deg)");
+					$(".kontrol").animate({left: "-220px"});
+					tombol=false;
+				}
+			});
+			auto=true;
+			cek=false;
+			$(".kontrol").click(function(){
+				gaming=false;
+				if($("#customRadio0").prop('checked')){
+					if(!cek){
+						init_auto();
+					}
+					auto=true;
+					localStorage.setItem("mode", "auto");
+					cek=true;
+				}
+				else{
+					auto=false;
+					cek=false;
+				}
+				if($("#customRadio1").prop('checked')){
+					ubuntu();
+					localStorage.setItem("mode", "ubuntu");
+				}
+				else if($("#customRadio2").prop('checked')){
+					dawn();
+					localStorage.setItem("mode", "dawn");
+				}
+				else if($("#customRadio3").prop('checked')){
+					morning();
+					localStorage.setItem("mode", "morning");
+				}
+				else if($("#customRadio4").prop('checked')){
+					noon();
+					localStorage.setItem("mode", "noon");
+				}
+				else if($("#customRadio5").prop('checked')){
+					afternoon();
+					localStorage.setItem("mode", "afternoon");
+				}
+				else if($("#customRadio6").prop('checked')){
+					sunset();
+					localStorage.setItem("mode", "sunset");
+				}
+				else if($("#customRadio7").prop('checked')){
+					evening();
+					localStorage.setItem("mode", "evening");
+				}
+				else if($("#customRadio8").prop('checked')){
+					midnight();
+					localStorage.setItem("mode", "midnight");
+				}
+				else if($("#customRadio10").prop('checked')){
+					manual();
+					localStorage.setItem("mode", "manual");
+				}
+				else if($("#customRadio9").prop('checked')){
+					gaming1();
+					localStorage.setItem("mode", "gaming1");
+					gaming=true;
+				}
+				if (gaming==false){
+					nofill();
+				}
+			});
+			function ubuntu(){
+				$(".ubuntu").animate({opacity:"1"},1000);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				white();
+			}
+			function dawn(){
+				$(".dawn").animate({opacity:"1"},1000);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				black();
+			}
+			function morning(){
+				$(".morning").animate({opacity:"1"},1000);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				black();
+			}
+			function noon(){
+				$(".noon").animate({opacity:"1"},1000);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				black();
+			}
+			function afternoon(){
+				$(".afternoon").animate({opacity:"1"},1000);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				black();
+			}
+			function sunset(){
+				$(".sunset").animate({opacity:"1"},1000);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				white();
+			}
+			function evening(){
+				$(".evening").animate({opacity:"1"},1000);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				white();
+			}
+			function midnight(){
+				$(".midnight").animate({opacity:"1"},1000);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				white();
+			}
+			function red(){
+				$(".jam").css("color","#F00");
+				$(".ucapan").css("color","#F00");
+				$(".bulat span").css("border-color","#F00");
+				$(".kotak li").css("background","#000");
+				$(".red").animate({opacity:"1"},1000);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				white();
+			}
+			function green(){
+				$(".jam").css("color","#0F0");
+				$(".ucapan").css("color","#0F0");
+				$(".bulat span").css("border-color","#0F0");
+				$(".kotak li").css("background","#000");
+				$(".green").animate({opacity:"1"},1000);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				white();
+			}
+			function blue(){
+				$(".jam").css("color","#00F");
+				$(".ucapan").css("color","#00F");
+				$(".bulat span").css("border-color","#00F");
+				$(".kotak li").css("background","#000");
+				$(".blue").animate({opacity:"1"},1000);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".custom").animate({opacity:"0"},500);
+				white();
+			}
+			function manual(){
+				$(".custom").animate({opacity:"1"},1000);
+				$(".midnight").animate({opacity:"0"},500);
+				$(".dawn").animate({opacity:"0"},500);
+				$(".ubuntu").animate({opacity:"0"},500);
+				$(".morning").animate({opacity:"0"},500);
+				$(".noon").animate({opacity:"0"},500);
+				$(".afternoon").animate({opacity:"0"},500);
+				$(".sunset").animate({opacity:"0"},500);
+				$(".evening").animate({opacity:"0"},500);
+				$(".red").animate({opacity:"0"},500);
+				$(".green").animate({opacity:"0"},500);
+				$(".blue").animate({opacity:"0"},500);
+				white();
+			}
+			warna=1;
+			function gaming1(){
+				if (gaming){
+					fillblack();
+					if (warna==1){
+						red();
+					}
+					else if (warna==2) {
+						green();
+					}
+					else if (warna==3) {
+						blue();
+					}
+					warna+=1;
+					if (warna==4){
+						warna=1;
+					}
+				}
+			}
+			setInterval(gaming1, 4000);
+			function black(){
+				$(".jam").css("color","#000");
+				$(".ucapan").css("color","#000");
+				$(".quotes").css("color","#000");
+				$(".quotes").css("text-shadow","0px 0px 10px #FFF");
+				$(".bulat span").css("border-color","#000");
+				$(".kotak li").css("background","#000");
+			}
+			function fillblack(){
+				$(".bulat span").css("background","#000");
+			}
+			function nofill(){
+				$(".bulat span").css("background","unset");
+			}
+			function white(){
+				$(".jam").css("color","#FFF");
+				$(".ucapan").css("color","#FFF");
+				$(".quotes").css("color","#FFF");
+				$(".quotes").css("text-shadow","0px 0px 10px #000");
+				$(".bulat span").css("border-color","#FFF");
+				$(".kotak li").css("background","#FFF");
+			}
+			function debug(){
+				console.log('debug');
+			}
+
+			var txt = 'Halo Maxi ku ';
+			var txt2 = 'txt';
+
+			function checkTime(i) {
+				if (i < 10) {
+						i = "0" + i;
+					}
+				return i;
+				}
+			var H;
+			var M;
+			var S;
+			var starting=true;
+			function startTime() {
+				var today = new Date();
+				var h = today.getHours();
+				var m = today.getMinutes();
+				var s = today.getSeconds();
+
+				H=h;
+				M=m;
+				S=s;
+
+				if (H<5){
+					txt='Have a Good Night Honey :*';
+					if(txt != txt2 && !starting)
+						document.getElementById("quote").innerHTML = txt;
+					txt2=txt;
+				}
+				else if(H<9){
+					txt='Good Morning beb :)';
+					if(txt != txt2 && !starting)
+						document.getElementById("quote").innerHTML = txt;
+					txt2=txt;
+				}
+				else if(H<12){
+					txt='Be Happy Today  :*';
+					if(txt != txt2 && !starting)
+						document.getElementById("quote").innerHTML = txt;
+					txt2=txt;
+				}
+				else if(H<16){
+					txt='Good Afternoon beb :)';
+					if(txt != txt2 && !starting)
+						document.getElementById("quote").innerHTML = txt;
+					txt2=txt;
+				}
+				else if(H<19){
+					txt='Good Afternoon , Take a Rest :)';
+					if(txt != txt2 && !starting)
+						document.getElementById("quote").innerHTML = txt;
+					txt2=txt;
+				}
+				else if(H<23){
+					txt='Good Evening Sweetie :*';
+					if(txt != txt2 && !starting)
+						document.getElementById("quote").innerHTML = txt;
+					txt2=txt;
+				}
+				else if(H<=24){
+					txt='Time to Sleep, Good Night, Have a nice dream Honey :*';
+					if(txt != txt2 && !starting)
+						document.getElementById("quote").innerHTML = txt;
+					txt2=txt;
+				}
+				starting=false;
+
+				if (auto && m==0 && s==0){
+					if ((h>23) || (h<4)){
+						midnight();
+					}
+					else if(h<6){
+						dawn();
+					}
+					else if(h<9){
+						morning();
+					}
+					else if(h<17){
+						noon();
+					}
+					else if(h<18){
+						afternoon();
+					}
+					else if(h<19){
+						sunset();
+					}
+					else if(h<23){
+						evening();
+					}
+				}
+
+				// add a zero in front of numbers<10
+				m = checkTime(m);
+				s = checkTime(s);
+				document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+				t = setTimeout(function() {
+				startTime()
+				}, 500);
+			}
+			startTime();
+			function init_auto(){
+				if ((H>23) || (H<4)){
+					midnight();
+				}
+				else if(H<6){
+					dawn();
+				}
+				else if(H<9){
+					morning();
+				}
+				else if(H<17){
+					noon();
+				}
+				else if(H<18){
+					afternoon();
+				}
+				else if(H<19){
+					sunset();
+				}
+				else if(H<23){
+					evening();
+				}
+				else{
+					midnight();
+				}
+			}
+
+			const quotes = [
+			  {
+			    "quote": "Jauhi mantan, Dekati aku, Mantan masa lalumu, Kalo aku masa depanmu",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "Please dont leave me, Because I Love You",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "Selamat Beraktivitas Sayangku :* ",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "I Miss Someone",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "believe me, I only love you, nobody else",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "Every failure, rejection, betrayal should be the reason for you to come back stronger in life by working on goals and achiving them",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "I Love You for Ever 'Someone' ",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "Heii, Do You Love Me?",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "People doesn't want to end their life, they just wanted to end the pain",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "Need someone to talk about life, but sitting alone is much better",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "Seorang bahagia bukan karena semua benar dalam hidupnya, tapi sikap terhadap hidupnya yang benar",
+			    "source": "Maximillio"
+			  },
+			  {
+			    "quote": "Jika hari ini harus lebih baik darpada hari kemarin dan hari esok lebih baik daripada hari ini maka kelahiranmu adalah hari terburuk yang pernah ada",
+			    "source": "Maximillio"
+			  },
+			]
+			setInterval(randomQuote, 60000);
+			function randomQuote(){
+			  let random = quotes[Math.floor(Math.random() * quotes.length)];
+			  quotation.innerText = `"${random.quote}"`;
+			  source.innerText = random.source;
+			}
+
+			var i = 0;
+			
+			var speed = 50;
+			
+			function typeWriter() {
+				if (i < txt.length) {
+					var o = (i/txt.length*2);
+					var o = o.toFixed(0);
+					var o2 = o-1;
+					if (o2<0)
+						o2=0;
+					var o3 = String(o);
+					var p = "translate(-50%,50%) scale("+o2+")";
+					document.getElementById("quote").innerHTML += txt.charAt(i);
+					i++;
+					$(".jam").css("opacity",o3);
+					$(".bulat").css("transform",p).css("opacity",o2);
+					setTimeout(typeWriter, speed);
+				}
+			}
+			typeWriter();
+		</script>
+	
+
+<div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png" width="20" height="20" alt="Google Translate"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">Original text</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">Contribute a better translation</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><div class="sp-container sp-hidden sp-light sp-alpha-enabled sp-clear-enabled sp-palette-buttons-disabled sp-initial-disabled"><div class="sp-palette-container"><div class="sp-palette sp-thumb sp-cf"><div class="sp-cf sp-palette-row sp-palette-row-0"><span title="hitam" data-color="rgb(0, 0, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(0, 0, 0);"></span></span><span title="# 444444" data-color="rgb(68, 68, 68)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(68, 68, 68);"></span></span><span title="# 5b5b5b" data-color="rgb(91, 91, 91)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(91, 91, 91);"></span></span><span title="# 999999" data-color="rgb(153, 153, 153)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(153, 153, 153);"></span></span><span title="#bcbcbc" data-color="rgb(188, 188, 188)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(188, 188, 188);"></span></span><span title="#EE ee ee" data-color="rgb(238, 238, 238)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(238, 238, 238);"></span></span><span title="# f3f6f4" data-color="rgb(243, 246, 244)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(243, 246, 244);"></span></span><span title="putih" data-color="rgb(255, 255, 255)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(255, 255, 255);"></span></span></div><div class="sp-cf sp-palette-row sp-palette-row-1"><span title="# f44336" data-color="rgb(244, 67, 54)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(244, 67, 54);"></span></span><span title="# 744700" data-color="rgb(116, 71, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(116, 71, 0);"></span></span><span title="# ce7e00" data-color="rgb(206, 126, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(206, 126, 0);"></span></span><span title="# 8fce00" data-color="rgb(143, 206, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(143, 206, 0);"></span></span><span title="# 2986cc" data-color="rgb(41, 134, 204)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(41, 134, 204);"></span></span><span title="# 16537e" data-color="rgb(22, 83, 126)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(22, 83, 126);"></span></span><span title="# 6a329f" data-color="rgb(106, 50, 159)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(106, 50, 159);"></span></span><span title="# c90076" data-color="rgb(201, 0, 118)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(201, 0, 118);"></span></span></div><div class="sp-cf sp-palette-row sp-palette-row-2"><span title="# f4cccc" data-color="rgb(244, 204, 204)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(244, 204, 204);"></span></span><span title="# fce5cd" data-color="rgb(252, 229, 205)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(252, 229, 205);"></span></span><span title="# fff2cc" data-color="rgb(255, 242, 204)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(255, 242, 204);"></span></span><span title="# d9ead3" data-color="rgb(217, 234, 211)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(217, 234, 211);"></span></span><span title="# d0e0e3" data-color="rgb(208, 224, 227)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(208, 224, 227);"></span></span><span title="# cfe2f3" data-color="rgb(207, 226, 243)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(207, 226, 243);"></span></span><span title="# d9d2e9" data-color="rgb(217, 210, 233)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(217, 210, 233);"></span></span><span title="# ead1dc" data-color="rgb(234, 209, 220)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(234, 209, 220);"></span></span></div><div class="sp-cf sp-palette-row sp-palette-row-3"><span title="# ea9999" data-color="rgb(234, 153, 153)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(234, 153, 153);"></span></span><span title="# f9cb9c" data-color="rgb(249, 203, 156)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(249, 203, 156);"></span></span><span title="# ffe599" data-color="rgb(255, 229, 153)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(255, 229, 153);"></span></span><span title="# b6d7a8" data-color="rgb(182, 215, 168)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(182, 215, 168);"></span></span><span title="# a2c4c9" data-color="rgb(162, 196, 201)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(162, 196, 201);"></span></span><span title="# 9fc5e8" data-color="rgb(159, 197, 232)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(159, 197, 232);"></span></span><span title="# b4a7d6" data-color="rgb(180, 167, 214)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(180, 167, 214);"></span></span><span title="# d5a6bd" data-color="rgb(213, 166, 189)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(213, 166, 189);"></span></span></div><div class="sp-cf sp-palette-row sp-palette-row-4"><span title="# e06666" data-color="rgb(224, 102, 102)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(224, 102, 102);"></span></span><span title="# f6b26b" data-color="rgb(246, 178, 107)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(246, 178, 107);"></span></span><span title="# ffd966" data-color="rgb(255, 217, 102)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(255, 217, 102);"></span></span><span title="# 93c47d" data-color="rgb(147, 196, 125)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(147, 196, 125);"></span></span><span title="# 76a5af" data-color="rgb(118, 165, 175)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(118, 165, 175);"></span></span><span title="# 6fa8dc" data-color="rgb(111, 168, 220)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(111, 168, 220);"></span></span><span title="# 8e7cc3" data-color="rgb(142, 124, 195)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(142, 124, 195);"></span></span><span title="# c27ba0" data-color="rgb(194, 123, 160)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(194, 123, 160);"></span></span></div><div class="sp-cf sp-palette-row sp-palette-row-5"><span title="# cc0000" data-color="rgb(204, 0, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(204, 0, 0);"></span></span><span title="# e69138" data-color="rgb(230, 145, 56)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(230, 145, 56);"></span></span><span title="# f1c232" data-color="rgb(241, 194, 50)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(241, 194, 50);"></span></span><span title="# 6aa84f" data-color="rgb(106, 168, 79)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(106, 168, 79);"></span></span><span title="# 45818e" data-color="rgb(69, 129, 142)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(69, 129, 142);"></span></span><span title="# 3d85c6" data-color="rgb(61, 133, 198)" class="sp-thumb-el sp-thumb-light"><span class="sp-thumb-inner" style="background-color:rgb(61, 133, 198);"></span></span><span title="# 674ea7" data-color="rgb(103, 78, 167)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(103, 78, 167);"></span></span><span title="# a64d79" data-color="rgb(166, 77, 121)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(166, 77, 121);"></span></span></div><div class="sp-cf sp-palette-row sp-palette-row-6"><span title="# 990000" data-color="rgb(153, 0, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(153, 0, 0);"></span></span><span title="# b45f06" data-color="rgb(180, 95, 6)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(180, 95, 6);"></span></span><span title="# bf9000" data-color="rgb(191, 144, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(191, 144, 0);"></span></span><span title="# 38761d" data-color="rgb(56, 118, 29)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(56, 118, 29);"></span></span><span title="# 134f5c" data-color="rgb(19, 79, 92)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(19, 79, 92);"></span></span><span title="# 0b5394" data-color="rgb(11, 83, 148)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(11, 83, 148);"></span></span><span title="# 351c75" data-color="rgb(53, 28, 117)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(53, 28, 117);"></span></span><span title="# 741b47" data-color="rgb(116, 27, 71)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(116, 27, 71);"></span></span></div><div class="sp-cf sp-palette-row sp-palette-row-7"><span title="# 660000" data-color="rgb(102, 0, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(102, 0, 0);"></span></span><span title="# 783f04" data-color="rgb(120, 63, 4)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(120, 63, 4);"></span></span><span title="# 7f6000" data-color="rgb(127, 96, 0)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(127, 96, 0);"></span></span><span title="# 274e13" data-color="rgb(39, 78, 19)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(39, 78, 19);"></span></span><span title="# 0c343d" data-color="rgb(12, 52, 61)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(12, 52, 61);"></span></span><span title="# 073763" data-color="rgb(7, 55, 99)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(7, 55, 99);"></span></span><span title="# 20124d" data-color="rgb(32, 18, 77)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(32, 18, 77);"></span></span><span title="# 4c1130" data-color="rgb(76, 17, 48)" class="sp-thumb-el sp-thumb-dark"><span class="sp-thumb-inner" style="background-color:rgb(76, 17, 48);"></span></span></div><div class="sp-cf sp-palette-row sp-palette-row-selection"></div></div><div class="sp-palette-button-container sp-cf"><button type="button" class="sp-palette-toggle"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">melanjutkan</font></font></button></div></div><div class="sp-picker-container"><div class="sp-top sp-cf"><div class="sp-fill"></div><div class="sp-top-inner"><div class="sp-color" style="background-color: rgb(0, 121, 255);"><div class="sp-sat"><div class="sp-val"><div class="sp-dragger" style="top: 0px; left: 0px;"></div></div></div></div><div class="sp-clear sp-clear-display" title="Hapus Pilihan Warna"></div><div class="sp-hue"><div class="sp-slider" style="top: 0px;"></div></div></div><div class="sp-alpha"><div class="sp-alpha-inner" style="background: linear-gradient(to right, rgba(0, 121, 255, 0), rgb(0, 121, 255));"><div class="sp-alpha-handle" style="left: 0px;"></div></div></div></div><div class="sp-input-container sp-cf"><input class="sp-input" type="text" spellcheck="false"></div><div class="sp-initial sp-thumb sp-cf"></div><div class="sp-button-container sp-cf"><button class="sp-cancel" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Batal</font></font></button><button type="button" class="sp-choose"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Pilih</font></font></button></div></div></div><div class="goog-te-spinner-pos goog-te-spinner-pos-show"><div class="goog-te-spinner-animation goog-te-spinner-animation-show"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 708.034px; top: -59.3421px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 38.7241px; top: 382.432px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 791.734px; top: 528.739px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1059.36px; top: 457.793px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 434.948px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 562.785px; top: 351.3px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 665.15px; top: 425.329px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 225.924px; top: -296.962px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 72.4092px; top: -83.0743px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1095.47px; top: -256.133px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 339.817px; top: -224.14px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 147.987px; top: -236.128px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1124.22px; top: 503.529px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 883.786px; top: -359.149px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 944.513px; top: 439.462px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1053px; top: -116px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1095.16px; top: 556.482px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 803.893px; top: 447.671px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 619.878px; top: 346.212px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 910.856px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 703.754px; top: -78.8141px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 73.0092px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 904.675px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1017.44px; top: -298.499px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 144.015px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 993.819px; top: 546.816px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1236px; top: -647px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 852.475px; top: 214.066px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 987.103px; top: 497.958px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1072.7px; top: 196.21px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 0.45; padding: 0px; margin: 0px; font-size: 8.1px; line-height: 13.3px; text-align: center; vertical-align: baseline; left: 882.163px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1162.33px; top: 166.272px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 354.951px; top: -145.098px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 883.376px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 290.57px; top: 74.9821px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 384.116px; top: -13.9184px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1065.57px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 502.352px; top: -277.559px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 109.172px; top: 290.13px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 987.353px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 508px; top: -152px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 348px; top: -419px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 94.2108px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1056px; top: -190px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1087px; top: -660px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1009.62px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 323.572px; top: 132.62px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1199.06px; top: -170.491px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 809.88px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 418.443px; top: 322.407px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1006.04px; top: 35.2715px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 870.82px; top: 102.493px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 75.2993px; top: 130.356px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 405px; top: -324px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1109px; top: -208px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 223.433px; top: 124.126px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 384.498px; top: -275.946px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 538.303px; top: -308.128px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 687.131px; top: -4.00778px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1140.63px; top: 361.879px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 32.2323px; top: -140.654px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 512.681px; top: -97.5486px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 0.25; padding: 0px; margin: 0px; font-size: 4.5px; line-height: 14.5px; text-align: center; vertical-align: baseline; left: 356.87px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: fixed; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: 0px; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 769.446px; top: auto;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 421.399px; top: -23.7377px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 529px; top: -53px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 789px; top: -119px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 103px; top: -633px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 426px; top: -150px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 104px; top: -82px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 573px; top: -471px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 0px; top: -639px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 565px; top: -130px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 982px; top: -224px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 524px; top: -400px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 395px; top: -34px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1149px; top: -154px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 621px; top: -241px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 251px; top: -589px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 722px; top: -246px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 869px; top: -552px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1041px; top: -53px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 299px; top: -531px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 468px; top: -651px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1154px; top: -203px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1165px; top: -174px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 897px; top: -415px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 337px; top: -278px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 474px; top: -300px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1057px; top: -565px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 427px; top: -430px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 262px; top: -247px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1048px; top: -359px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 94px; top: -345px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 294px; top: -183px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 182px; top: -424px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 74px; top: -10px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 207px; top: -502px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 947px; top: -348px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1178px; top: -289px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 653px; top: -265px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1215px; top: -506px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1059px; top: -25px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 114px; top: -306px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 253px; top: -335px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 831px; top: -133px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 419px; top: -172px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 14px; line-height: 10px; text-align: center; vertical-align: baseline; left: 933px; top: -87px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 495px; top: -484px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1024px; top: -457px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 713px; top: -196px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 780px; top: -446px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1287px; top: -145px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 359px; top: -586px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 259px; top: -49px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 611px; top: -292px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 838px; top: -460px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 387px; top: -313px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 294px; top: -409px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 12px; line-height: 10px; text-align: center; vertical-align: baseline; left: 327px; top: -29px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 20px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1205px; top: -471px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 352px; top: -531px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 911px; top: -338px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 48px; top: -44px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 16px; line-height: 10px; text-align: center; vertical-align: baseline; left: 922px; top: -207px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 10px; line-height: 10px; text-align: center; vertical-align: baseline; left: 662px; top: -623px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1117px; top: -153px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div><div style="color: rgb(255, 255, 255); position: absolute; width: 8px; height: 8px; font-family: arial, verdana; overflow: hidden; font-weight: normal; z-index: 0; display: block; bottom: auto; opacity: 1; padding: 0px; margin: 0px; font-size: 18px; line-height: 10px; text-align: center; vertical-align: baseline; left: 1134px; top: -604px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">•</font></font></div></html>
